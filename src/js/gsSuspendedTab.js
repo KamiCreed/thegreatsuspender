@@ -374,7 +374,37 @@ var gsSuspendedTab = (function() {
     };
   }
 
+   //add hotkey listener for next/previous tab
+  //responds to Shift+J and Shift+K to match Vimium
+  window.addEventListener('keypress', function(event) {
+    var nextPrevTab = function(dir) {
+      chrome.tabs.query({currentWindow: true}, function(tabs) {
+        var i = 0; while(!tabs[i].active) { i++; };
+        chrome.tabs.update(tabs[(i+tabs.length+dir) % tabs.length].id, {active: true});
+      });
+    };
+
+    if ( event.shiftKey === true ) {
+      switch ( event.key ) {
+        case 'J':
+          nextPrevTab(-1);
+          break;
+        case 'K':
+          nextPrevTab(1);
+          break;
+      }
+    }
+  });
+
   function showUnsuspendAnimation(_document) {
+    if (_document.body.classList.contains('img-preview-mode')) {
+      _document.getElementById('refreshSpinner').classList.add('spinner');
+    } else {
+      _document.body.classList.add('waking');
+      _document.getElementById('snoozyImg').src = chrome.extension.getURL(
+        'img/snoozy_tab_awake.svg'
+      );
+      _document.getElementById('snoozySpinner').classList.add('spinner');
     if (_document.body.classList.contains('img-preview-mode')) {
       _document.getElementById('refreshSpinner').classList.add('spinner');
     } else {
