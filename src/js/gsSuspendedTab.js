@@ -387,7 +387,6 @@ var gsSuspendedTab = (function() {
         });
       };
 
-      console.log('test')
       if ( event.shiftKey === true ) {
         switch ( event.key ) {
           case 'J':
