@@ -409,14 +409,6 @@ var gsSuspendedTab = (function() {
         'img/snoozy_tab_awake.svg'
       );
       _document.getElementById('snoozySpinner').classList.add('spinner');
-    if (_document.body.classList.contains('img-preview-mode')) {
-      _document.getElementById('refreshSpinner').classList.add('spinner');
-    } else {
-      _document.body.classList.add('waking');
-      _document.getElementById('snoozyImg').src = chrome.extension.getURL(
-        'img/snoozy_tab_awake.svg'
-      );
-      _document.getElementById('snoozySpinner').classList.add('spinner');
     }
   }
 
